@@ -115,7 +115,7 @@ namespace GLFWNet
         internal static extern IntPtr glfwGetVersionString();
 
         [DllImport(GLFW_LIBRARY, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern int glfwGetError([MarshalAs(UnmanagedType.LPStr)]out string description);
+        internal static extern int glfwGetError(out IntPtr description);
 
         [DllImport(GLFW_LIBRARY, CallingConvention = CallingConvention.Cdecl)]
         internal static extern GLFWerrorfun glfwSetErrorCallback(GLFWerrorfun callback);
@@ -479,7 +479,17 @@ namespace GLFWNet
 
         public static int GetError(out string description)
         {
-            return glfwGetError(out description);
+            int result = glfwGetError(out IntPtr ptr);
+
+            if(ptr != IntPtr.Zero)
+            {
+                description = Marshal.PtrToStringAnsi(ptr);
+                return result;
+            }
+
+            description = string.Empty;
+            return result;
+
         }
 
         public static GLFWerrorfun SetErrorCallback(GLFWerrorfun callback)

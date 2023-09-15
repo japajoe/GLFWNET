@@ -71,6 +71,11 @@ namespace GLFWNet
         private readonly GLFWjoystickfun joystickfunCallback;
         private IntPtr window;
 
+        public IntPtr Handle
+        {
+            get => window;
+        }
+
         public GLFWWindow()
         {
             errorfunCallback = OnError;
@@ -126,6 +131,8 @@ namespace GLFWNet
             GLFW.SetDropCallback(window, dropfunCallback);
             GLFW.SetJoystickCallback(joystickfunCallback);
             
+            GLFW.MakeContextCurrent(window);
+
             return true;
         }
 
@@ -137,6 +144,12 @@ namespace GLFWNet
                 GLFW.SwapBuffers(window);
                 GLFW.PollEvents();
             }
+        }
+
+        public void Close()
+        {
+            if(GLFW.WindowShouldClose(window) == GLFW.FALSE)
+                GLFW.SetWindowShouldClose(window, GLFW.TRUE);
         }
 
         private void OnError(int error_code, IntPtr description)

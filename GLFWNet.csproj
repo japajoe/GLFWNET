@@ -1,9 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="OpenTK">
+      <HintPath>../OpenTK/bin/Release/net7.0/OpenTK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>

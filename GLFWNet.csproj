@@ -2,14 +2,30 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>JAJ.Packages.GLFWNet</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>W.M.R Jap-A-Joe</Authors>
+    <PackageTags>OpenGL GLFW</PackageTags>
+    <Description>
+      A wrapper for GLFW.
+    </Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/japajoe/GLFWNet</PackageProjectUrl> 
+    <RepositoryUrl>https://github.com/japajoe/GLFWNet.git</RepositoryUrl> 
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Copyright>Copyright $([System.DateTime]::Now.Year) W.M.R Jap-A-Joe</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="OpenTK">
-      <HintPath>../OpenTK/bin/Release/net7.0/OpenTK.dll</HintPath>
-    </Reference>
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="runtimes/**" PackagePath="runtimes" Visible="false" />
   </ItemGroup>
 
 </Project>

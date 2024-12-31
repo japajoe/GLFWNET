@@ -97,7 +97,7 @@ namespace GLFWNet
 
     public static class GLFW
     {
-        private const string GLFW_LIBRARY = "glfw";
+        private const string GLFW_LIBRARY = "glfw3";
 
         public const int VERSION_MAJOR = 3;
         public const int VERSION_MINOR = 4;

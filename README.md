@@ -3,8 +3,10 @@ A .NET wrapper for GLFW.
 
 # Install
 ```
-dotnet add package JAJ.Packages.GLFWNet --version 1.0.2
+dotnet add package JAJ.Packages.GLFWNet --version 1.0.3
 ```
+# Changes in 1.0.3
+- Free memory in SetWindowIcon.
 
 # Changes in 1.0.2
 - Implement SetWindowIcon.

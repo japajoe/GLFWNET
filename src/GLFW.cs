@@ -1004,15 +1004,20 @@ namespace GLFWNet
             if(images == null)
                 throw new NullReferenceException("GLFW.SetWindowIcon: images can not be null");
 
-            IntPtr iconImagesPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(GLFWimage)) * images.Length);
+            IntPtr pIcons = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(GLFWimage)) * images.Length);
+
+            if(pIcons == IntPtr.Zero)
+                throw new InsufficientMemoryException();
             
             for (int i = 0; i < images.Length; i++)
             {
-                IntPtr currentImagePtr = new IntPtr(iconImagesPtr.ToInt64() + i * Marshal.SizeOf(typeof(GLFWimage)));
-                Marshal.StructureToPtr(images[i], currentImagePtr, false);
+                IntPtr pImage = new IntPtr(pIcons.ToInt64() + i * Marshal.SizeOf(typeof(GLFWimage)));
+                Marshal.StructureToPtr(images[i], pImage, false);
             }
             
-            glfwSetWindowIcon(window, images.Length, iconImagesPtr);
+            glfwSetWindowIcon(window, images.Length, pIcons);
+
+            Marshal.FreeHGlobal(pIcons);
         }
 
         public static void GetWindowPos(IntPtr window, out int xpos, out int ypos)

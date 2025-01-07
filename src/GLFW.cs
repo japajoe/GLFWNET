@@ -1,6 +1,6 @@
 // MIT License
 
-// Copyright (c) 2024 japajoe
+// Copyright (c) 2025 japajoe
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -1001,13 +1001,18 @@ namespace GLFWNet
 
         public static void SetWindowIcon(IntPtr window, GLFWimage[] images)
         {
-            // IntPtr iconImagesPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(GLFWimage)) * images.Length);
-            // for (int i = 0; i < images.Length; i++)
-            // {
-            //     IntPtr currentImagePtr = new IntPtr(iconImagesPtr.ToInt64() + i * Marshal.SizeOf(typeof(GLFWimage)));
-            //     Marshal.StructureToPtr(images[i], currentImagePtr, false);
-            // }
-            // glfwSetWindowIcon(window, images.Length, iconImagesPtr);
+            if(images == null)
+                throw new NullReferenceException("GLFW.SetWindowIcon: images can not be null");
+
+            IntPtr iconImagesPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(GLFWimage)) * images.Length);
+            
+            for (int i = 0; i < images.Length; i++)
+            {
+                IntPtr currentImagePtr = new IntPtr(iconImagesPtr.ToInt64() + i * Marshal.SizeOf(typeof(GLFWimage)));
+                Marshal.StructureToPtr(images[i], currentImagePtr, false);
+            }
+            
+            glfwSetWindowIcon(window, images.Length, iconImagesPtr);
         }
 
         public static void GetWindowPos(IntPtr window, out int xpos, out int ypos)
